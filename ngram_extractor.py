@@ -106,7 +106,7 @@ class NgramExcavator:
             if index % 5 == 0:
                 self._save_results(target, index, arc_type)
             prog.count()
-        self._save_results(target, arc_type)
+        self._save_results(target, 99, arc_type)
 
     def _save_results(self, target='adj', index=99, arc_type='arcs'):
         if target == 'adj':
@@ -223,23 +223,3 @@ class NgramExcavator:
 
 ne = NgramExcavator(processed_files=[])
 ne.read_them_all(target='vrb', arc_type='arcs')
-
-# I have attached a sample set of adjectives and nouns, in two separate files -- you will only need the 1st column in
-# each file for extraction. Specifically, we are looking to extract the frequency raw count of (adjective, noun) phrase
-# for over the past 200 years available in Syntactic ngram.
-#
-# The way you'll do the extraction is exhaustively search for the combination of adjective+noun from the two files, and
-# collect the frequency counts over 1801--2000 only if such a pair existed during this period, and ignore the pair if it
-# did not exist. To do so, you can pair up 1 adj from the adj file and 1 noun from the noun file, e.g. "bitter_ADJ" +
-# "antelope_NOUN". Do you think this is doable? The only complication is that because nouns can be singular and plural,
-# it would be great if you can collapse the frequency raw counts by considering both of these possibilities, e.g. count
-# for "bitter_ADJ" + "antelope_NOUN" / "antelopes_NOUN" would take into account both plural and singular cases of
-# antelope.
-#
-# You can store the resulting retrieval results in a simple csv file, where each column records the frequency counts
-# over 1801--2000 for a given (adj, noun) pair, where you name that column exactly by Adjective, Noun in the title (so
-# we know which pair you extracted frequencies for).
-
-
-# The first 5 columns include all inflectional forms of the verbs, which should be collapsed in the collection of raw
-# frequency counts, over the same period as adjective, noun pairs.
